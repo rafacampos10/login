@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:login/components/login/custom_login_button_component.dart';
 import 'package:login/controllers/login_controller.dart';
+import 'package:login/widgets/custom_text_field_widget.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
-
   final LoginController _controller = LoginController();
 
   @override
@@ -20,48 +21,17 @@ class LoginPage extends StatelessWidget {
               size: 48,
               color: Colors.blue.shade900,
             ),
-            TextField(
-              decoration: InputDecoration(
-                label: Text ("E-mail"),
-              ),
+            CustomTextFieldWidget(
+              label: "Login",
               onChanged: _controller.setLogin,
             ),
-            TextField(
-              decoration: InputDecoration(
-                label: Text ("Senha"),
-              ),
+            CustomTextFieldWidget(
+              label: "Senha",
+              onChanged: _controller.setPass,
               obscureText: true,
-                onChanged: _controller.setPass,
             ),
             SizedBox(height: 15),
-
-            ValueListenableBuilder<bool>(
-              valueListenable: _controller.inLoader,
-                builder: (_,inLoader,__) => inLoader
-                    ? CircularProgressIndicator()
-                    : ElevatedButton(
-                    onPressed: () {
-                      _controller.auth().then(
-                            (result) {
-                              if (result) {
-                                Navigator.of(context).pushReplacementNamed(
-                                    "/home");
-                              } else {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: const Text('Falha ao realizar o login'),
-                                  duration: const Duration(seconds: 5),
-                                ),
-                                );
-
-                              }
-                            }
-                      );
-                    },
-                    child: Text("Entrar"),
-                  ),
-    ),
-
+            CustomLoginButtonComponent(loginController: _controller,),
           ],
         ),
       ),
