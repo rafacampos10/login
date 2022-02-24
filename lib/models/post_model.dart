@@ -1,4 +1,3 @@
-
 class PostModel{
   final int userId;
   final int id;
@@ -10,4 +9,8 @@ class PostModel{
   factory PostModel.fromJson(Map json){
     return PostModel(json["userId"], json["id"], json["title"], json["body"]);
   }
+
+  @override
+  String toString() => "id: $id";
+
 }

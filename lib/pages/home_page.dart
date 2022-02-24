@@ -35,8 +35,12 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (_,idx) => ListTile(
                 leading: Text(list[idx].id.toString()),
                 title: Text(list[idx].title),
-                subtitle: Text(list[idx].body),
                 trailing: Icon(Icons.arrow_forward),
+                onTap: () => Navigator.of(context)
+                    .pushNamed(
+                  "/sub",
+                  arguments:list[idx],
+                ),
             ),
               separatorBuilder: (_,__) =>Divider(),
             );
